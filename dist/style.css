@@ -1,0 +1,39 @@
+h1 {
+  width: 100%;
+  background-color: #f0f1f2;
+  border: 2px solid #cccdce;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  filter: drop-shadow(1px 2px 3px black);
+}
+
+/* Card CSS */
+.card {
+  filter: drop-shadow(1px 2px 3px black);
+  width: 200px;
+  height: 250px;
+}
+
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2% 5%;
+  gap: 1%;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.person-role {
+  font-size: 22px;
+}
+
+.list-group-item {
+  background-color: #f8f9fa;
+  width: fit-content;
+}
