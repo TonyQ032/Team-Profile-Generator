@@ -1,8 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const Engineer = require('./lib/Engineer.js');
-const Manager = require('./lib/Manager.js');
-const Intern = require('./lib/Intern.js');
+const generatePage = require('./dist/generatePage.js');
 
 //List of questions the user is asked
 const questions = () => {
@@ -82,27 +80,6 @@ const questions = () => {
   return userQuestions;
 }
 
-//Generates HTML Page writing
-function generatePage(data) {
-  console.log(data)
-
-  //Assigns all incoming data into easier variable names
-  const {managerName, managerId, managerEmail, managerNum, engineerName, engineerId, engineerEmail, engineerGithub, internName, internId, internEmail, internSchool} = data;
-
-  console.log("-----------------------")
-
-  //Creates engineer object using collected data
-  const engineerOne = new Engineer(engineerName, engineerId, engineerEmail, engineerGithub);
-
-  //Creates maanger object using collected data
-  const managerOne = new Manager(managerName, managerId, managerEmail, managerNum);
-
-  //Creates intern object using collected data
-  const internOne = new Intern(internName, internId, internEmail, internSchool)
-
-  console.log(engineerOne, managerOne, internOne)
-}
-
 //Writes info to new index.html files
 function writeToFile(html) {
   return new Promise((resolve, reject) => {
@@ -112,12 +89,13 @@ function writeToFile(html) {
         reject(err);
         return;
       }
+      console.log("index.html successfully generated!")
       resolve();
     })
   })
 }
 
-//Questions is called then executes a chain of events
+//Questions() is called then executes a chain of events
 questions()
 .then(data => {
   //Takes users input and runs the generatePage function with it
@@ -125,7 +103,6 @@ questions()
 })
 .then(html => {
   writeToFile(html);
-  console.log("index.html successfully generated!")
 })
 .catch(err => {
   console.log(err)
