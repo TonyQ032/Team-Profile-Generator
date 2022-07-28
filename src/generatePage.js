@@ -3,7 +3,7 @@ const Engineer = require('../lib/Engineer.js');
 const Intern = require('../lib/Intern.js');
 
 //Generates HTML Page writing
-function generatePage(manager, engineer, intern) {
+function generatePage(data) {
   //Returns completed text for index.html using the previously generated html for every
   return `<!DOCTYPE html>
 <html lang="en">
@@ -21,9 +21,7 @@ function generatePage(manager, engineer, intern) {
   <h1>My Team</h1>
   
   <section class="card-container">
-    ${manager}
-    ${engineer}
-    ${intern}
+    ${data}
   </section>
 </body>
 

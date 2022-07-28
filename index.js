@@ -1,9 +1,11 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generatePage = require('./src/generatePage.js');
+
 const Manager = require('./lib/Manager.js');
 const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
+
+const generatePage = require('./src/generatePage.js');
 
 //List of manager questions the user is asked
 const managerQuestions = [
@@ -104,10 +106,8 @@ function writeToFile(html) {
   })
 }
 
-//Will be used to generate HTML for cards. Left as empty strings so they can still be used as parameters even if the user doesn't want an engineer or intern
-let managerHtml = '';
-let engineerHtml = '';
-let internHtml = '';
+//Will be used to generate HTML for cards
+let completeTeamData = '';
 
 //askQuestions() is called then executes a chain of events
 async function askQuestions() {
@@ -115,8 +115,8 @@ async function askQuestions() {
   const managerInfo = await inquirer.prompt(managerQuestions);
   const newManager = new Manager(managerInfo.managerName, managerInfo.managerId, managerInfo.managerEmail, managerInfo.managerNum);
 
-  //Creates a card with the manager's info and stores it within the 'managerHtml' variable
-  managerHtml = newManager.createCard();
+  //Creates a card with the manager's info and adds it to the 'completeTeamData' variable
+  completeTeamData += newManager.createCard();
 
   //While loop that continually runs until user clicks 'finish'
   let keepRunning = true;
@@ -130,7 +130,8 @@ async function askQuestions() {
       const engineerInfo = await inquirer.prompt(engineerQuestions);
       const newEngineer = new Engineer(engineerInfo.engineerName, engineerInfo.engineerId, engineerInfo.engineerEmail, engineerInfo.engineerGithub)
 
-      engineerHtml = newEngineer.createCard();
+      //Creates a card with the engineers's info and adds it to the 'completeTeamData' variable
+      completeTeamData += newEngineer.createCard();
 
     // Will prompt user with intern questions  
     } else if (workerPosition === "Intern") {
@@ -138,15 +139,18 @@ async function askQuestions() {
       const internInfo = await inquirer.prompt(internQuestions);
       const newIntern = new Intern(internInfo.internName, internInfo.internId, internInfo.internEmail, internInfo.internSchool)
 
-      internHtml = newIntern.createCard();
+      //Creates a card with the intern's info and adds it to the 'completeTeamData' variable
+      completeTeamData += newIntern.createCard();
     } else {
       //When user selects 'Finish team', while loop ends
       keepRunning = false;
     }
   }
 
-  const indexHtml = generatePage(managerHtml, engineerHtml, internHtml);
+  //Runs generatePage function with the completed Team data
+  const indexHtml = generatePage(completeTeamData)
 
+  //Creates index.html with completed team data
   writeToFile(indexHtml);
 }
 
