@@ -1,3 +1,7 @@
+body {
+  background-color: lightsteelblue;
+}
+
 h1 {
   width: 100%;
   background-color: #f0f1f2;
@@ -11,8 +15,8 @@ h1 {
 /* Card CSS */
 .card {
   filter: drop-shadow(1px 2px 3px black);
-  width: 250px;
-  height: 250px;
+  width: 275px;
+  height: 300px;
 }
 
 .card-container {

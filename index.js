@@ -100,11 +100,7 @@ const continueQuestion = [
 //Writes all retrieved data to 'index.html'
 function writeToFile(html) {
   fs.writeFile('./dist/index.html', html, err => {
-    if (err) {
-      console.log("Error writing HTML to file");
-      return;
-    }
-    console.log("index.html successfully generated!")
+    err ? console.log("Error writing HTML to file") : console.log("index.html successfully generated!");
   })
 }
 
@@ -122,7 +118,7 @@ async function askQuestions() {
   //Creates a card with the manager's info and stores it within the 'managerHtml' variable
   managerHtml = newManager.createCard();
 
-  //Going to make a while loop that continually runs until user clicks 'finish'
+  //While loop that continually runs until user clicks 'finish'
   let keepRunning = true;
   while (keepRunning) {
     const newWorker = await inquirer.prompt(continueQuestion);
