@@ -1,7 +1,3 @@
-const Manager = require('../lib/Manager.js');
-const Engineer = require('../lib/Engineer.js');
-const Intern = require('../lib/Intern.js');
-
 //Generates HTML Page writing
 function generatePage(data) {
   //Returns completed text for index.html using the previously generated html for every
